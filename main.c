@@ -1,7 +1,7 @@
 //run program di terminal: gcc main.c source/Library.c -Iinclude -o main
 #include <stdio.h>
 #include <stdlib.h>
-#include "include/Library.h"
+#include "Library.h"
 
 int main(void){
     int* arr1 = GetArray("data/arr.txt", 1, 1);
