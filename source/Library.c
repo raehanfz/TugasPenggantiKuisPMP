@@ -3,80 +3,48 @@
 #include <string.h>
 #include "Library.h" 
 
-void LargestThree(int array[], int len){
+void Largest3(int* array_data, int len, int array_output[3]){
     if (len == 1){
-        printf("%d %d %d\n", array[0], array[0], array[0]);
+        array_output[0] = array_data[0];
+        array_output[1] = array_data[0];
+        array_output[2] = array_data[0];
     } else if (len == 2){
-        if (array[0] > array[1]){
-            printf("%d %d %d\n", array[0], array[0], array[1]);
+        if (array_data[0] > array_data[1]){
+                array_output[0] = array_data[0];
+                array_output[1] = array_data[0];
+                array_output[2] = array_data[1];
         } else {
-            printf("%d %d %d\n", array[1], array[1], array[0]);
+                array_output[0] = array_data[1];
+                array_output[1] = array_data[1];
+                array_output[2] = array_data[0];
         }
     } else {
         int first = -9999, second = -9999, third = -9999;
         for (int i = 0; i < len; i++){
-            if (array[i] > first){
+            if (array_data[i] > first){
                 third = second;
                 second = first;
-                first = array[i];
-            } else if (array[i] > second){
+                first = array_data[i];
+            } else if (array_data[i] > second){
                 third = second;
-                second = array[i];
-            } else if (array[i] > third){
-                third = array[i];
+                second = array_data[i];
+            } else if (array_data[i] > third){
+                third = array_data[i];
             }
         }
-        printf("%d %d %d\n", first, second, third);
+        array_output[0] = first;
+        array_output[1] = second;
+        array_output[2] = third;
     }
+    printf("%d %d %d", array_output[0], array_output[1], array_output[2]);
 }
 
-
-void SilinderVolumeAndSurfaceArea(int r, int h){
+float Tabung(int r, int h, char jenis_input){
     float volume = PI*r*r*h, surfaceArea = 2*PI*r*(r+h);
-    printf("perbandingan: %f\n", volume/surfaceArea);
-}
-
-int* GetArray(char namafile[MAX_ARRAY_SIZE], int line, int size){
-    FILE* fptr = fopen(namafile, "r");
-    if (fptr == NULL) {
-        perror("Error opening file");
-        return NULL;
+    if (jenis_input == 'v'){
+        return volume;
+    } else {
+        return surfaceArea;
     }
-
-    int* arr = (int*)malloc(size * sizeof(int));
-    if (arr == NULL) {
-        fclose(fptr);
-        return NULL;
-    }
-
-    char buffer[32];
-    int counter = 1;
-
-    while (fgets(buffer, sizeof(buffer), fptr)) {
-        if (counter == line) {
-            // Tokenize the line and fill the array
-            char* token = strtok(buffer, " \t\n");
-            for (int i = 0; i < size; i++) {
-                if (token == NULL) {
-                    fprintf(stderr, "Not enough numbers on line %d\n", line);
-                    free(arr);
-                    fclose(fptr);
-                    return NULL;
-                }
-                arr[i] = atoi(token);
-                token = strtok(NULL, " \t\n");
-            }
-            break;
-        }
-        counter++;
-    }
-
-    if (counter < line) {
-        fprintf(stderr, "Line %d not found in file\n", line);
-        free(arr);
-        arr = NULL;
-    }
-
-    fclose(fptr);
-    return arr;
+    
 }

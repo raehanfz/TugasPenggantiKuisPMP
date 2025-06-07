@@ -4,23 +4,34 @@
 #include "Library.h"
 
 int main(void){
-    int* arr1 = GetArray("data/arr.txt", 1, 1);
-    int* arr2 = GetArray("data/arr.txt", 2, 2);
-    int* arr3 = GetArray("data/arr.txt", 3, 4);
-    int* arr4 = GetArray("data/arr.txt", 4, 7);
+    int arr_angka[20];
+    int arr_output[3];
+    char temp[5];
+    int temp_angka;
+    int N = 0;
+    float volume_tabung, luas_permukaan_tabung;
 
-    if (arr1) LargestThree(arr1, 1);
-    if (arr2) LargestThree(arr2, 2);
-    if (arr3) LargestThree(arr3, 4);
-    if (arr4) LargestThree(arr4, 7);
+    // Buka file
+    FILE *fptr = fopen("data/arr.txt", "r");
+    if (fptr == NULL) {
+        printf("File tidak ditemukan!\n");
+        return 1;
+    }
 
-    free(arr1);
-    free(arr2);
-    free(arr3);
-    free(arr4);
+    // Baca angka dari file
+    while (fgets(temp, sizeof(temp), fptr) != NULL) {
+        temp_angka = atoi(temp);
+        arr_angka[N++] = temp_angka;
+    }
 
-    SilinderVolumeAndSurfaceArea(3, 4);
-    SilinderVolumeAndSurfaceArea(8, 9);
+    fclose(fptr);
+
+    Largest3(arr_angka, N, arr_output);
+    printf("\n");
+    volume_tabung = Tabung(3, 4, 'v');
+    luas_permukaan_tabung = Tabung(8, 9, 'l');
+
+    printf("rasio volume dan luas permukaan tabung: %f", volume_tabung/luas_permukaan_tabung);
 
     return 0;
 }
