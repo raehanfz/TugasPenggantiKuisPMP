@@ -33,7 +33,7 @@ void LargestThree(int array[], int len){
 
 void SilinderVolumeAndSurfaceArea(int r, int h){
     float volume = PI*r*r*h, surfaceArea = 2*PI*r*(r+h);
-    printf("volume: %f\nsurface area: %f\n", volume, surfaceArea);
+    printf("perbandingan: %f\n", volume/surfaceArea);
 }
 
 int* GetArray(char namafile[MAX_ARRAY_SIZE], int line, int size){
