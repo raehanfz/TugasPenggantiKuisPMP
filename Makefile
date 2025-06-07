@@ -1,23 +1,22 @@
-CFLAGS = -Iinclude -Wall -Wextra -g
-SRCS = main.c source/Library.c
-OBJ = $(SRCS:.c=.o)
-EXEC = main
+# Nama executable
+TARGET = perbandingan
 
-all: $(EXEC)
+# Compiler dan flags
+CC = gcc
+CFLAGS = -Wall -g
 
-$(EXEC): $(OBJ)
-	gcc $(OBJ) -o $@
+# Source files
+SRCS = header_adiva.c perbandingan.c
+OBJS = $(SRCS:.c=.o)
 
-main.o: main.c
-	gcc $(CFLAGS) -c $< -o $@
+# Rule utama
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $(TARGET)
 
-source/%.o: source/%.c
-	gcc $(CFLAGS) -c $< -o $@
+# Rule kompilasi .c ke .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
+# Bersih-bersih
 clean:
-	rm -f $(OBJ) $(EXEC)
-
-run: $(EXEC)
-	./$(EXEC)
-
-.PHONY: all clean run
+	rm -f $(OBJS) $(TARGET)
