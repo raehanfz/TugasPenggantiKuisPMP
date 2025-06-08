@@ -28,8 +28,10 @@ int main(void){
 
     Largest3(arr_angka, N, arr_output);
     printf("\n");
-    volume_tabung = Tabung(3, 4, 'v');
-    luas_permukaan_tabung = Tabung(8, 9, 'l');
+    int x = arr_output[0], y = arr_output[1], z = arr_output[2];
+
+    volume_tabung = Tabung(x, y, 'v');
+    luas_permukaan_tabung = Tabung(z, y, 'l');
 
     printf("rasio volume dan luas permukaan tabung: %f", volume_tabung/luas_permukaan_tabung);
 
